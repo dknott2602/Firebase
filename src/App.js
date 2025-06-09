@@ -9,6 +9,7 @@ import {
   query,
   where,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -25,13 +26,17 @@ function App() {
     const hardcodedId = "Sd6N1eloLG56RCUGImYh";
     const postRef = doc(db, "posts", hardcodedId);
     const post = await getPostById(hardcodedId)
-    console.log(post)
     const newPost = {
       ...post,
       title: "Land a 400k job",
     };
-
     updateDoc(postRef, newPost);
+  }
+
+  function deletePost () {
+    const hardcodedId = "Sd6N1eloLG56RCUGImYh";
+    const postRef = doc(db, "posts", hardcodedId);
+    deleteDoc(postRef)
   }
 
   function createPost() {
@@ -107,7 +112,8 @@ function App() {
       <button onClick={getAllPosts}>Get All Post</button>
       <button onClick={getPostById}>Get Post By Id</button>
       <button onClick={getPostByUid}>Get Post By Uid</button>
-      <button onClick={updatePost}>Update post</button>
+      <button onClick={updatePost}>Update Post</button>
+      <button onClick={deletePost}>Delete Post</button>
     </div>
   );
 }
